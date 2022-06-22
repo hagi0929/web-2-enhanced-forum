@@ -7,7 +7,6 @@ function connect(): bool|mysqli
         '63254088',
         'datagrip');
 }
-
 function top($title): void
 {
     echo '
