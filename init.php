@@ -7,6 +7,7 @@ function connect(): bool|mysqli
         '63254088',
         'datagrip');
 }
+
 function top($title): void
 {
     echo '
@@ -14,6 +15,7 @@ function top($title): void
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="./example.js"></script>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -34,6 +36,17 @@ function headerInit(): void
 
 function navBar($type): void
 {
+}
+
+function footerInit(): void
+{
+    echo '
+<footer>
+
+</footer>
+</body>
+</html>
+';
 }
 
 ?>

@@ -30,8 +30,4 @@ headerInit(); ?>
         ?>
     </div>
 </div>
-<footer>
-
-</footer>
-</body>
-</html>
+<?php footerInit(); ?>
