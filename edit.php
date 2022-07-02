@@ -2,12 +2,13 @@
 include_once('init.php');
 ?>
 <?php top('Forum Board');
+
 headerInit(); ?>
 
     <script src="main.js"></script>
     <div class="container_contents">
         <div class="wrapper">
-            <form action="writeFinal.php" method="post" id="writeFinalSubmit">
+            <form action="editFinal.php" method="post" id="writeFinalSubmit">
                 <div class="nav">
                     <a class="btn" href="javascript:Submit('writeFinalSubmit',['inputBoxTitleWrite', 'inputBoxContentWrite'])">Create</a>
                     <a class="btn" href="index.php">Cancel</a>

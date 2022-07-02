@@ -8,15 +8,21 @@ $row = mysqli_fetch_array($query);
 
 <?php top('view profile');
 headerInit(); ?>
-
-<div class="container_contents">
-    <div class="wrapper">
-        <div class="nav">
-            <a class="btn" href="Delete.php">Delete</a>
-            <a class="btn" href="Edit.php">Edit</a>
-        </div>
-        <?php
-        echo '
+    <script src="main.js"></script>
+    <div class="container_contents">
+        <div class="wrapper">
+            <div class="nav">
+                <form action="delete.php" method="post" id="deleteSubmit">
+                    <input type="hidden" name="ID" value=<?php echo $articleId ?>>
+                </form>
+                <form action="edit.php" method="post" id="editSubmit">
+                    <input type="hidden" name="ID" value=<?php echo $articleId ?>>
+                </form>
+                <a class="btn" href="javascript: passwordNSubmit('deleteSubmit')">Delete</a>
+                <a class="btn" href="javascript: passwordNSubmit('editSubmit')">Edit</a>
+            </div>
+            <?php
+            echo '
         <div class="view">
             <div class="view-title">
                 <h3>' . $row['title'] . '</h3>
@@ -27,7 +33,7 @@ headerInit(); ?>
             </div>
         </div>';
 
-        ?>
+            ?>
+        </div>
     </div>
-</div>
 <?php footerInit(); ?>
