@@ -7,13 +7,13 @@ $article = mysqli_fetch_array(mysqli_query(connect(), "SELECT * FROM articledb w
 
 $authorID = $article['authorId'];
 $authorPassword = mysqli_fetch_array(mysqli_query(connect(), "SELECT password FROM users where userId = " . $authorID))['password'];
-echo $rcvPassword.$authorPassword;
 if ($rcvPassword == $authorPassword) {
     mysqli_query(connect(), "DELETE FROM articledb where id = " . $rcvID);
+header("Location: index.php");
 //    header("Location: index.php");
 } else {
     echo "<script >alert('access denied')</script>";
-//    header("Location: view.php/id?=" . $rcvID);
+header("Location: view.php?id=" . $rcvID);
 }
 ?>
 
