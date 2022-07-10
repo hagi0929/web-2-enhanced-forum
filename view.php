@@ -12,7 +12,7 @@ headerInit(); ?>
     <div class="container_contents">
         <div class="wrapper">
             <div class="nav">
-                <form action="delete.php" method="post" id="deleteSubmit">
+                <form action="deleteFinal.php" method="post" id="deleteSubmit">
                     <input type="hidden" name="ID" value=<?php echo $articleId ?>>
                 </form>
                 <form action="edit.php" method="post" id="editSubmit">

@@ -1,7 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+$background-color: white;
+$primary-color: black;
+$secondary-color: #f8f8f8;
+body {
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  color: $primary-color;
+  background: $background-color;
+}
+
 a {
   text-decoration: none;
-  color: black;
+  color: $primary-color;
 }
+
+::-moz-selection {
+  background: #41FFFD;
+  color: #000
+}
+
+::selection {
+  background: #41FFFD;
+  color: #000
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
@@ -12,7 +35,8 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   padding: 3px 15px 3px 15px;
   margin: 0 5px 0 5px;
-  border: 2px solid black;
+  border: 2px solid $primary-color;
+  color: $primary-color;
 }
 
 .header {
@@ -24,8 +48,6 @@ h1, h2, h3, h4, h5, h6 {
     height: 150px;
   }
 
-  border-top: 5px double black;
-  border-bottom: 5px double black;
 }
 
 .nav {
@@ -51,7 +73,8 @@ h1, h2, h3, h4, h5, h6 {
 
   .view {
     width: 100%;
-    border-top: 2px solid black;
+    border-top: 2px solid $primary-color;
+    color: $primary-color;
 
     .view-title {
       padding-left: 20px;
@@ -64,13 +87,13 @@ h1, h2, h3, h4, h5, h6 {
       padding-left: 20px;
       padding-top: 60px;
       padding-bottom: 20px;
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid $primary-color;
     }
   }
 
   .editView {
     width: 100%;
-    border-top: 2px solid black;
+    border-top: 2px solid $primary-color;
 
     .view-title {
       padding: 20px;
@@ -83,21 +106,20 @@ h1, h2, h3, h4, h5, h6 {
         height: 2em;
         font-size: 15px;
         font-weight: lighter;
-        font-family: "Fira Code";
       }
     }
 
     .view-content {
       padding: 20px;
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid $primary-color;
       display: flex;
       flex-direction: row;
-      .inputBoxContent{
+
+      .inputBoxContent {
         width: 100%;
         resize: vertical;
         font-weight: lighter;
         font-size: 15px;
-        font-family: "Fira Code";
       }
     }
   }
@@ -110,8 +132,8 @@ table {
 
 
   tr:nth-child(1) {
-    border-top: 2px solid black;
-    border-bottom: 1px solid black;
+    border-top: 2px solid $primary-color;
+    border-bottom: 1px solid $primary-color;
   }
 
   tr:nth-child(n+2) {
@@ -120,7 +142,7 @@ table {
   }
 
   tr:nth-child(n+2):hover {
-    background: #eaeaea;
+    background: $secondary-color;
   }
 
   td:nth-child(1) {
