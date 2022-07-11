@@ -1,11 +1,17 @@
 <?php
 function connect(): bool|mysqli
 {
+    $f = fopen('key.txt', 'r');
+    $hostname = trim(htmlspecialchars(fgets($f)));
+    $username = trim(htmlspecialchars(fgets($f)));
+    $password = trim(htmlspecialchars(fgets($f)));
+    $database = trim(htmlspecialchars(fgets($f)));
     return mysqli_connect(
-        'localhost',
-        'datagrip',
-        '63254088',
-        'datagrip');
+        $hostname,
+        $username,
+        $password,
+        $database
+    );
 }
 
 function top($title): void
