@@ -5,7 +5,7 @@ function connect(): bool|mysqli
     $hostname = trim(htmlspecialchars(fgets($f)));
     $username = trim(htmlspecialchars(fgets($f)));
     $password = trim(htmlspecialchars(fgets($f)));
-    $database = trim(htmlspecialchars(fgets($f)));
+    $database = htmlspecialchars(fgets($f));
     return mysqli_connect(
         $hostname,
         $username,
