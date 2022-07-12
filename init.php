@@ -1,6 +1,6 @@
 <?php
 function connect(): bool|mysqli
-{
+{mysqli_report(MYSQLI_REPORT_ALL);
     $f = fopen('key.txt', 'r');
     $hostname = trim(htmlspecialchars(fgets($f)));
     $username = trim(htmlspecialchars(fgets($f)));
