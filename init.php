@@ -1,17 +1,24 @@
 <?php
+error_reporting( E_ALL );
+  ini_set( "display_errors", 1 );
 function connect(): bool|mysqli
-{mysqli_report(MYSQLI_REPORT_ALL);
+{
+mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
+
     $f = fopen('key.txt', 'r');
     $hostname = trim(htmlspecialchars(fgets($f)));
     $username = trim(htmlspecialchars(fgets($f)));
     $password = trim(htmlspecialchars(fgets($f)));
     $database = trim(htmlspecialchars(fgets($f)));
-    return mysqli_connect(
+    $port = trim(htmlspecialchars(fgets($f)));
+    $connect = mysqli_connect(
         $hostname,
         $username,
         $password,
-        $database
-    );
+        $database,
+        $port
+    ) or die('There was a problem connecting to the database');
+    return $connect;
 }
 
 function top($title): void

@@ -17,9 +17,7 @@ headerInit(); ?>
                 </tr>
                 <?php
                 $filterArticle = "SELECT id, title, displayName, uploadDate, userId FROM articledb LEFT JOIN users ON articledb.authorId = users.userId";
-
                 $query = mysqli_query(connect(), $filterArticle);
-
                 while ($row = mysqli_fetch_array($query)) {
                     echo '<tr>';
                     echo '<td>' . $row['id'] . '</td>';
