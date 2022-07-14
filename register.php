@@ -1,7 +1,6 @@
 <?php
-require_once("connection.php");
+require_once("init.php");
 
-session_start();
 
 if (isset($_SESSION['user'])) {
     header("location: welcome.php");
@@ -11,7 +10,11 @@ $nameInit = "";
 $emailInit = "";
 $passwordInit = "";
 if (isset($_REQUEST['register_btn'])) {
-    $name = filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING);
+    if (preg_match("/^[a-zA-Z가-힣 ]*$/", $_REQUEST['name'])){
+        $name = strip_tags($_REQUEST['name']);
+    }else{
+        $errormsg[0][] = "Invalid name: only char allowed";
+    }
     $email = filter_var(strtolower($_REQUEST['email']), FILTER_SANITIZE_EMAIL);
     $password = strip_tags($_REQUEST['password']);
     if (empty($name)) {
@@ -40,7 +43,7 @@ if (isset($_REQUEST['register_btn'])) {
             $select_stat = $db->prepare($query1);
             $select_stat->execute([":email" => $email]);
             $row = $select_stat->fetch(PDO::FETCH_ASSOC);
-            if (empty($row["email"]) or $row["email"] !== $email) {
+            if (isset($row["email"])) {
                 $errormsg[1][] = "Email address already exists";
             } else{
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -48,26 +51,16 @@ if (isset($_REQUEST['register_btn'])) {
                 $query = "INSERT INTO users (name, email, password, created) VALUES (:name, :email, :password, NOW())";
                 $insert_stat = $db -> prepare($query);
                 $insert_stat->execute([':name' => $name, ':email' => $email, ':password' => $hashed_password]);
-                header("location: index.php");
+                header("location: login.php");
             }
         } catch (PDOEXCEPTION $e) {
             echo $pdoError = $e->getMessage();
         }
     }
 }
+top("register");
+headerInit();
 ?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-            crossorigin="anonymous"></script>
-    <title>Register</title>
-</head>
 <body>
 <div class="container">
 
@@ -110,8 +103,9 @@ if (isset($_REQUEST['register_btn'])) {
         ?>
         <button type="submit" name="register_btn" class="btn btn-primary">Register Account</button>
     </form>
-    Already Have an Account? <a class="register" href="index.php">Login Instead</a>
+    Already Have an Account? <a class="register blue" href="login.php">Login Instead</a>
 
 </div>
 </body>
 </html>
+<?php footerInit(); ?>

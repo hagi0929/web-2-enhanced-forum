@@ -1,15 +1,12 @@
 <?php
-require_once("connection.php");
-
-session_start();
-
+require_once("init.php");
 if (isset($_SESSION['user'])) {
-    header("location: welcome.php");
+    header("location: index.php");
 }
-
 $emailInit = "";
 $passwordInit = "";
 if (isset($_REQUEST['login_btn'])) {
+
     $email = filter_var(strtolower($_REQUEST['email']), FILTER_SANITIZE_EMAIL);
     $password = strip_tags($_REQUEST['password']);
     if (empty($email)) {
@@ -32,6 +29,8 @@ if (isset($_REQUEST['login_btn'])) {
                 $_SESSION['user']['name'] = $row['name'];
                 $_SESSION['user']['email'] = $row['email'];
                 $_SESSION['user']['id'] = $row['id'];
+                header("location: index.php");
+
             } else {
                 $errormsg[2][] = "wrong email or password";
                 $passwordInit = "";
@@ -41,21 +40,10 @@ if (isset($_REQUEST['login_btn'])) {
         }
     }
 }
+top("login");
+headerInit();
+
 ?>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-            crossorigin="anonymous"></script>
-    <title>Login</title>
-</head>
-
 <body>
 <div class="container">
     <?php
@@ -64,8 +52,11 @@ if (isset($_REQUEST['login_btn'])) {
             echo "<p class=\"alert alert-danger\">" . $longinError . "</p>";
         }
     }
+    if (isset($_GET['ss'])){
+        echo "<p class=\"alert alert-danger\">" . "Must login to create post" . "</p>";
+    }
     ?>
-    <form action="index.php" method="post">
+    <form action="login.php" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" name="email" class="form-control" placeholder="jane@doe.com" value="<?= $emailInit ?>">
@@ -92,8 +83,9 @@ if (isset($_REQUEST['login_btn'])) {
         ?>
         <button type="submit" name="login_btn" class="btn btn-primary">Login</button>
     </form>
-    No Account? <a class="register" href="register.php">Register Instead</a>
+    No Account? <a class="register blue" href="register.php">Register Instead</a>
 </div>
 </body>
-
-</html>
+<?php
+footerInit();
+?>

@@ -2,12 +2,16 @@
 include_once('init.php');
 
 $rcvID = $_POST["ID"];
-$rcvPassword = $_POST["Password"];
 
-$article = mysqli_fetch_array(mysqli_query(connect(), "SELECT * FROM articledb where id = " . $rcvID));
+$article = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM articledb where id = " . $rcvID));
 $authorID = $article['authorId'];
-$authorPassword = mysqli_fetch_array(mysqli_query(connect(), "SELECT password FROM users where userId = " . $authorID))['password'];
-if ($rcvPassword == $authorPassword) {
+$filterUser = "SELECT id, name, email FROM users where id =" . $article['authorId'];
+$userQuery = mysqli_query($connect, $filterUser);
+$userRow = mysqli_fetch_array($userQuery);
+
+if (isset($_SESSION['user']) and $userRow['id'] == $_SESSION['user']['id'] and
+            $userRow['email'] == $_SESSION['user']['email'] and
+            $userRow['name'] == $_SESSION['user']['name']) {
     top("Edit");
     headerInit();
     echo '
@@ -16,7 +20,6 @@ if ($rcvPassword == $authorPassword) {
         <div class="wrapper">
             <form action="editFinal.php" method="POST" id="editFinalSubmit">
                 <input type="hidden" name="ID" value=' . $rcvID . '>
-                <input type="hidden" name="Password" value=' . $rcvPassword . '>
                 <div class="nav">
                     <a class="btn" href="javascript:Submit(&#39;editFinalSubmit&#39;,[&#39;inputBoxTitleEdit&#39;, &#39;inputBoxContentEdit&#39;])">Submit</a>
                     <a class="btn" href="view.php?id=' . $rcvID . '">Cancel</a>
