@@ -48,4 +48,4 @@ navigator(0);
             </table>
         </div>
     </div>
-<?php footerInit(); ?>
+<?php footerInit();?>

@@ -68,7 +68,7 @@ navigator();
     <form action="register.php" method="post">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="Jane Doe" value="<?= $nameInit ?>">
+            <input type="text" name="name" class="form-control" placeholder="" value="<?= $nameInit ?>">
         </div>
         <?php
         if (isset($errormsg[0])) {
@@ -80,7 +80,7 @@ navigator();
         ?>
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" placeholder="jane@doe.com" value="<?= $emailInit ?>">
+            <input type="email" name="email" class="form-control" placeholder="" value="<?= $emailInit ?>">
         </div>
         <?php
         if (isset($errormsg[1])) {

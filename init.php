@@ -65,7 +65,7 @@ function headerInit(): void
 function navigator($withSearch = 1): void
 {
     echo '
-<div class="nav top-nav">
+<div class="nav t-nav top">
     <div class="left">
     ';
     if (isset($_SESSION['user'])) {
@@ -75,8 +75,8 @@ function navigator($withSearch = 1): void
 
     echo '
     </div>';
-    if ($withSearch == 0){
-        echo'
+    if ($withSearch == 0) {
+        echo '
     <div class="middle">
             <form action="">
         <div class="navSearchBar">
@@ -109,9 +109,21 @@ function footerInit(): void
     echo '
 <footer class="foot">
 <div style="border-top: 1px solid black; width: 100vw;">created by <a href="https://github.com/hagi0929" class ="blue">hagi0929<a> with ❤️</div>
-</footer >
-</body >
-</html >
+</footer>
+</body>
+</html>
+';
+}
+
+function displayComment($commentAuthor, $commentContent, $commentDate)
+{
+    echo '
+<div class="t-nav comment">
+        <div class="left">
+        <span class="commentInfo">' . $commentAuthor . ' </span><span class="commentInfo"> ' . $commentDate . '</span>
+        </div>
+        <span>' . $commentContent . '<span>
+</div>
 ';
 }
 

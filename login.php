@@ -59,7 +59,7 @@ navigator();
     <form action="login.php" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" placeholder="jane@doe.com" value="<?= $emailInit ?>">
+            <input type="email" name="email" class="form-control" placeholder="" value="<?= $emailInit ?>">
         </div>
         <?php
         if (isset($errormsg[0])) {
