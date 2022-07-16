@@ -1,16 +1,11 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
 
 mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
 
-$f = fopen('key.txt', 'r');
-$hostname = trim(htmlspecialchars(fgets($f)));
-$username = trim(htmlspecialchars(fgets($f)));
-$password = trim(htmlspecialchars(fgets($f)));
-$database = trim(htmlspecialchars(fgets($f)));
-$port = trim(htmlspecialchars(fgets($f)));
 $connect = mysqli_connect(
     $hostname,
     $username,
@@ -49,7 +44,6 @@ function top($title): void
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
             crossorigin="anonymous"></script>
- 
     <link rel="stylesheet" type="text/css" href="main.css">    
     <script src="main.js"></script>
     <title>' . $title . '</title>
@@ -59,35 +53,62 @@ function top($title): void
 
 function headerInit(): void
 {
+    echo '
+<header class="header">
+    <div>
+        <a href = "index.php" > <h1 > Forum Board </h1 > </a >
+    </div>
+</header>
+';
+}
+
+function navigator($withSearch = 1): void
+{
+    echo '
+<div class="nav top-nav">
+    <div class="left">
+    ';
+    if (isset($_SESSION['user'])) {
+        echo "<div class='profile'>{$_SESSION['user']['name']}</div>";
+
+    }
+
+    echo '
+    </div>';
+    if ($withSearch == 0){
+        echo'
+    <div class="middle">
+            <form action="">
+        <div class="navSearchBar">
+                <input type="text" name="keyword" style="border: 2px solid black; border-radius: 4px">
+                <input type="submit" class="btn" value="search"> 
+        </div>      
+            </form>
+        </div>';
+    }
+    echo '
+    <div class="right">
+';
     if (isset($_SESSION['user'])) {
         echo "
-            <div class=\"nav top fixed underline reverse\">
-                <a class=\"btn\">{$_SESSION['user']['name']}</a>
-                <a class=\"btn\" href=\"logout.php\">logout</a>
-            </div>
+        <a class=\"btn\" href=\"logout.php\">logout</a>
         ";
     } else {
         echo '
-            <div class="nav top fixed underline reverse">
-                <a class="btn" href="login.php">login</a>
-                <a class="btn" href="register.php">register</a>
-            </div>
+        <a class="btn" href="login.php">login</a>
+        <a class="btn" href="register.php">register</a>
         ';
     }
-    echo '<header class="header">';
     echo '
-            <div>
-        <a href = "index.php" > <h1 > Forum Board </h1 > </a >
-    </div >
-</header > ';
+    </div>
+</div>';
 }
-
 
 function footerInit(): void
 {
     echo '
 <footer class="foot">
-<div>created by <a href="https://github.com/hagi0929" class ="blue">hagi0929<a> with ❤️</div>
+<div style="border-top: 1px solid black; width: 100vw;">created by <a href="https://github.com/hagi0929" class ="blue">hagi0929<a> with ❤️</div>
 </footer >
 </body >
 </html >

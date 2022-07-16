@@ -11,7 +11,7 @@ $userRow = mysqli_fetch_array($userQuery);
 if (isset($_SESSION['user']) and $userRow['id'] == $_SESSION['user']['id'] and
     $userRow['email'] == $_SESSION['user']['email'] and
     $userRow['name'] == $_SESSION['user']['name']) {
-    mysqli_query($connect, "UPDATE articledb SET title = '" . $_POST["Title"] . "', content = '" . $_POST["Content"] . "', uploadDate = now() WHERE id = " . $article["id"]);
+    mysqli_query($connect, "UPDATE articledb SET title = '" . htmlspecialchars($_POST["Title"]) . "', content = '" . htmlspecialchars($_POST["Content"]) . "', uploadDate = now() WHERE id = " . htmlspecialchars($article["id"]));
 } else {
     echo '<script>alert("access denied")</script>';
 }

@@ -2,6 +2,7 @@
 require_once("init.php");
 
 session_start();
+navigator();
 ?>
 <html lang="en">
 

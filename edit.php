@@ -41,6 +41,6 @@ if (isset($_SESSION['user']) and $userRow['id'] == $_SESSION['user']['id'] and
     echo "<script >alert('access denied')</script>";
     header("Location: view.phpid?=" . $rcvID);
 }
-
+navigator();
 ?>
 

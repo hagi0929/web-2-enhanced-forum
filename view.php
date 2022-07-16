@@ -14,6 +14,7 @@ if (isset($_GET['id'])) {
 } else {
     header("Location:login.php");
 }
+navigator(1);
 ?>
     <script src="main.js"></script>
     <div class="container_contents">
@@ -40,7 +41,7 @@ if (isset($_GET['id'])) {
                     <span><?= $userRow['name'] ?> | <?= $articleRow['uploadDate'] ?></span>
                 </div>
                 <div class="view-content">
-                    <span><?= $articleRow['content'] ?></span>
+                    <span><?= nl2br($articleRow['content']) ?></span>
                 </div>
             </div>
         </div>

@@ -60,6 +60,7 @@ if (isset($_REQUEST['register_btn'])) {
 }
 top("register");
 headerInit();
+navigator();
 ?>
 <body>
 <div class="container">

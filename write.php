@@ -7,7 +7,9 @@ else{
     $setName = 0;
 }
 top('Forum Board');
-headerInit(); ?>
+headerInit();
+navigator();
+?>
 
     <script src="main.js"></script>
     <div class="container_contents">

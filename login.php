@@ -42,7 +42,7 @@ if (isset($_REQUEST['login_btn'])) {
 }
 top("login");
 headerInit();
-
+navigator();
 ?>
 <body>
 <div class="container">

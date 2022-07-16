@@ -1,7 +1,17 @@
 <?php
 include_once('init.php');
 top('Forum Board');
-headerInit(); ?>
+headerInit();
+$condition = "";
+if (isset($_GET['user'])){
+    $condition = "WHERE authorId =".$_GET['user'];
+}
+if (isset($_GET['keyword'])){
+    $condition = "WHERE (title LIKE '%{$_GET['keyword']}%' OR content LIKE '%{$_GET['keyword']}%')";
+
+}
+navigator(0);
+?>
     <div class="container_contents">
         <div class="wrapper">
             <div class="nav">
@@ -21,7 +31,7 @@ headerInit(); ?>
                     <th>Time</th>
                 </tr>
                 <?php
-                $filterArticle = "SELECT id, title, authorId, uploadDate FROM articledb";
+                $filterArticle = "SELECT id, title, authorId, uploadDate FROM articledb ". $condition;
                 $articleQuery = mysqli_query($connect, $filterArticle);
                 while ($articleRow = mysqli_fetch_array($articleQuery)) {
                     $filterUser = "SELECT * FROM users where id = {$articleRow['authorId']}";
@@ -29,8 +39,8 @@ headerInit(); ?>
                     $userRow = mysqli_fetch_array($UserQuery);
                     echo '<tr>';
                     echo '<td>' . $articleRow['id'] . '</td>';
-                    echo '<td><a href="view.php?id=' . $articleRow['id'] . '">' . $articleRow['title'] . '</a></td>';
-                    echo '<td><a href="profile.php?id=' . $userRow['id'] . '">' . $userRow['name'] . '</a></td>';
+                    echo '<td><a href="view.php?id=' . htmlspecialchars($articleRow['id']) . '">' . htmlspecialchars($articleRow['title']) . '</a></td>';
+                    echo '<td><a href="index.php?user=' . htmlspecialchars($userRow['id']) . '">' . htmlspecialchars($userRow['name']) . '</a></td>';
                     echo '<td>' . mb_substr($articleRow['uploadDate'], 0, 10) . '</td>';
                     echo '</tr>';
                 }
