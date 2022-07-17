@@ -6,11 +6,6 @@ session_start();
 
 mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
 
-$hostname = "3.39.22.172";
-$username = "CRUD";
-$password = "63254088";
-$database = "Forum";
-$port = "3306";
 $connect = mysqli_connect(
     $hostname,
     $username,
