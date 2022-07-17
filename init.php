@@ -115,24 +115,25 @@ function footerInit(): void
 ';
 }
 
-function displayComment($commentAuthor, $commentContent, $commentDate, $commentId)
+function displayComment($commentsRow)
 {
     echo '
 <div class="comment">
     <div class="nav t-nav"style="border-bottom: 0">
         <div class="left">
-            <span class="commentInfo">' . $commentAuthor . ' </span>
-            <span class="commentInfo"> ' . $commentDate . '</span>
+            <span class="commentInfo">' . $commentsRow['username'] . ' </span>
+            <span class="commentInfo"> ' . $commentsRow['dateCreated'] . '</span>
         </div>';
-    if (isset($_SESSION['user']) and $_SESSION['user']['id'] = $commentAuthor) {
+    if (isset($_SESSION['user']) and $_SESSION['user']['userId'] == $commentsRow['userId']) {
 
         echo '
-        <form id = "modifyComment" action="makeComment.php" method="post">
+        <form id="deleteComment" action="modifyComment.php" method="POST">
         <div class="right">
-            <input type="hidden" name="commentId" value="commentId">
-            <input type="hidden" name="executeType">
-            <a class="mini-btn" onclick="Submit(\'modifyComment\',[] , {\'executeType\': \'edit\'})" href="#">edit</a>
-            <a class="mini-btn" onclick="Submit(\'modifyComment\',[] , {\'executeType\': \'delete\'})" href="#">delete</a>
+            <input type="hidden" name = "userId" value = "' . $_SESSION['user']['userId'] . '">
+            <input type="hidden" name = "articleId" value = "' . $_GET['id'] . '">
+            <input type="hidden" name="executeType" value="0">
+            <input type = "hidden" name = "commentId" value = "' . $commentsRow["id"] . '">
+            <a class = "mini-btn" onclick = "Submit(\'deleteComment\')" href = "#">delete</a>
         </div>
         </form>
 ';
@@ -140,7 +141,7 @@ function displayComment($commentAuthor, $commentContent, $commentDate, $commentI
     }
     echo '
     </div>
-        <span>' . $commentContent . '<span>
+        <span>' . nl2br($commentsRow['content']) . '<span>
 </div>
 ';
 }

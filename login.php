@@ -28,9 +28,8 @@ if (isset($_REQUEST['login_btn'])) {
             if (isset($row['password']) and password_verify($password, $row['password'])) {
                 $_SESSION['user']['username'] = $row['username'];
                 $_SESSION['user']['email'] = $row['email'];
-                $_SESSION['user']['id'] = $row['id'];
-                header("location: index.php");
-
+                $_SESSION['user']['userId'] = $row['userId'];
+                header("location:index.php");
             } else {
                 $errormsg[2][] = "wrong email or password";
                 $passwordInit = "";

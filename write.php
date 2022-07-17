@@ -1,7 +1,7 @@
 <?php
 include_once('init.php');
 if (isset($_SESSION['user'])){
-    $setUsername= $_SESSION['user']['id'];
+    $setUsername= $_SESSION['user']['userId'];
 }
 else{
     $setUsername= 0;

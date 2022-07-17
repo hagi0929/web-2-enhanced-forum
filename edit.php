@@ -3,13 +3,13 @@ include_once('init.php');
 
 $rcvID = $_POST["ID"];
 
-$article = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM articledb where id = " . $rcvID));
+$article = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM article where id = " . $rcvID));
 $authorID = $article['authorId'];
-$filterUser = "SELECT id, username, email FROM users where id =" . $article['authorId'];
+$filterUser = "SELECT userId, username, email FROM users where userId =" . $article['authorId'];
 $userQuery = mysqli_query($connect, $filterUser);
 $userRow = mysqli_fetch_array($userQuery);
 
-if (isset($_SESSION['user']) and $userRow['id'] == $_SESSION['user']['id'] and
+if (isset($_SESSION['user']) and $userRow['userId'] == $_SESSION['user']['userId'] and
     $userRow['email'] == $_SESSION['user']['email'] and
     $userRow['username'] == $_SESSION['user']['username']) {
     top("Edit");
