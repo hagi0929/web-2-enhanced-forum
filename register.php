@@ -6,21 +6,21 @@ if (isset($_SESSION['user'])) {
     header("location: welcome.php");
 }
 
-$nameInit = "";
+$usernameInit = "";
 $emailInit = "";
 $passwordInit = "";
 if (isset($_REQUEST['register_btn'])) {
-    if (preg_match("/^[a-zA-Z가-힣 ]*$/", $_REQUEST['name'])){
-        $name = strip_tags($_REQUEST['name']);
+    if (preg_match("/^[a-zA-Z가-힣 ]*$/", $_REQUEST['username'])){
+        $username = strip_tags($_REQUEST['username']);
     }else{
-        $errormsg[0][] = "Invalid name: only char allowed";
+        $errormsg[0][] = "Invalid username: only char allowed";
     }
     $email = filter_var(strtolower($_REQUEST['email']), FILTER_SANITIZE_EMAIL);
     $password = strip_tags($_REQUEST['password']);
-    if (empty($name)) {
-        $errormsg[0][] = "Name required";
+    if (empty($username)) {
+        $errormsg[0][] = "username required";
     } else {
-        $nameInit = $_REQUEST['name'];
+        $usernameInit = $_REQUEST['username'];
     }
 
     if (empty($email)) {
@@ -39,7 +39,7 @@ if (isset($_REQUEST['register_btn'])) {
     }
     if (empty($errormsg)) {
         try {
-            $query1 = "SELECT name, email FROM users WHERE email=:email";
+            $query1 = "SELECT username, email FROM users WHERE email=:email";
             $select_stat = $db->prepare($query1);
             $select_stat->execute([":email" => $email]);
             $row = $select_stat->fetch(PDO::FETCH_ASSOC);
@@ -48,9 +48,9 @@ if (isset($_REQUEST['register_btn'])) {
             } else{
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $created = new DateTime();
-                $query = "INSERT INTO users (name, email, password, created) VALUES (:name, :email, :password, NOW())";
+                $query = "INSERT INTO users (username, email, password, created) VALUES (:username, :email, :password, NOW())";
                 $insert_stat = $db -> prepare($query);
-                $insert_stat->execute([':name' => $name, ':email' => $email, ':password' => $hashed_password]);
+                $insert_stat->execute([':username' => username, ':email' => $email, ':password' => $hashed_password]);
                 header("location: login.php");
             }
         } catch (PDOEXCEPTION $e) {
@@ -67,8 +67,8 @@ navigator();
 
     <form action="register.php" method="post">
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="" value="<?= $nameInit ?>">
+            <label for="username" class="form-label">Name</label>
+            <input type="text" name="username" class="form-control" placeholder="" value="<?= $usernameInit ?>">
         </div>
         <?php
         if (isset($errormsg[0])) {

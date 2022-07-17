@@ -1,10 +1,10 @@
 <?php
 include_once('init.php');
 if (isset($_SESSION['user'])){
-    $setName = $_SESSION['user']['id'];
+    $setUsername= $_SESSION['user']['id'];
 }
 else{
-    $setName = 0;
+    $setUsername= 0;
 }
 top('Forum Board');
 headerInit();
@@ -19,7 +19,7 @@ navigator();
                     <a class="btn" href="javascript:Submit('writeFinalSubmit',['inputBoxTitleWrite', 'inputBoxContentWrite'])">Create</a>
                     <a class="btn" href="index.php">Cancel</a>
                 </div>
-                <input type="hidden" name="authorID" value="<?=$setName?>">
+                <input type="hidden" name="authorID" value="<?=$setUsername?>">
                 <div class="editView">
                     <div class="view-title">
                         <input class="inputBoxTitle" id = "inputBoxTitleWrite" name="Title" type="text" placeholder="Title" required>

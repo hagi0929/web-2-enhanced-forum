@@ -20,7 +20,7 @@ navigator();
 <body>
 <div class="container">
     <?php
-    echo $_SESSION['user']['name'];
+    echo $_SESSION['user']['username'];
     echo $_SESSION['user']['email'];
     echo $_SESSION['user']['id'];
     ?>

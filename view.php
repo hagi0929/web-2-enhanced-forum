@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $articleQuery = mysqli_query($connect, $filterArticle);
     $articleRow = mysqli_fetch_array($articleQuery);
 
-    $filterUser = "SELECT id, name, email FROM users where id =" . $articleRow['authorId'];
+    $filterUser = "SELECT id,username, email FROM users where id =" . $articleRow['authorId'];
     $userQuery = mysqli_query($connect, $filterUser);
     $userRow = mysqli_fetch_array($userQuery);
 } else {
@@ -22,7 +22,7 @@ navigator(1);
             <?php
             if (isset($_SESSION['user']) and $userRow['id'] == $_SESSION['user']['id'] and
                 $userRow['email'] == $_SESSION['user']['email'] and
-                $userRow['name'] == $_SESSION['user']['name']) {
+                $userRow['username'] == $_SESSION['user']['username']) {
                 echo '<div class="nav">
                 <form action="deleteFinal.php" method="post" id="deleteSubmit">
                     <input type="hidden" name="ID" value=' . $articleId . '>
@@ -38,7 +38,7 @@ navigator(1);
             <div class="view">
                 <div class="view-title">
                     <h3><?= $articleRow['title'] ?></h3>
-                    <span><?= $userRow['name'] ?> | <?= $articleRow['uploadDate'] ?></span>
+                    <span><?= $userRow['username'] ?> | <?= $articleRow['uploadDate'] ?></span>
                 </div>
                 <div class="view-content">
                     <span><?= nl2br($articleRow['content']) ?></span>
@@ -55,11 +55,11 @@ navigator(1);
                     </div>
                 </form>';
                 }
-                $filterComments = "SELECT comments.content, comments.dateCreated, users.name FROM comments LEFT JOIN users on comments.authorId = users.id WHERE articleId =" . $_GET['id'];
+                $filterComments = "SELECT comments.content, comments.dateCreated, users.username, comments.id FROM comments LEFT JOIN users on comments.authorId = users.id WHERE articleId =" . $_GET['id'];
                 $commentsQuery = mysqli_query($connect, $filterComments);
 
                 while ($commentsRow = mysqli_fetch_array($commentsQuery)) {
-                    displayComment($commentsRow['name'], nl2br($commentsRow['content']), $commentsRow['dateCreated']);
+                    displayComment($commentsRow['username'], nl2br($commentsRow['content']), $commentsRow['dateCreated'], $commentsRow['id']);
                 }
                 ?>
             </div>

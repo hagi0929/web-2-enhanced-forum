@@ -26,7 +26,7 @@ if (isset($_REQUEST['login_btn'])) {
             $select_stat->execute([":email" => $email]);
             $row = $select_stat->fetch(PDO::FETCH_ASSOC);
             if (isset($row['password']) and password_verify($password, $row['password'])) {
-                $_SESSION['user']['name'] = $row['name'];
+                $_SESSION['user']['username'] = $row['username'];
                 $_SESSION['user']['email'] = $row['email'];
                 $_SESSION['user']['id'] = $row['id'];
                 header("location: index.php");

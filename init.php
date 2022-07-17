@@ -6,6 +6,11 @@ session_start();
 
 mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
 
+$hostname = "3.39.22.172";
+$username = "CRUD";
+$password = "63254088";
+$database = "Forum";
+$port = "3306";
 $connect = mysqli_connect(
     $hostname,
     $username,
@@ -69,7 +74,7 @@ function navigator($withSearch = 1): void
     <div class="left">
     ';
     if (isset($_SESSION['user'])) {
-        echo "<div class='profile'>{$_SESSION['user']['name']}</div>";
+        echo "<div class='profile'>{$_SESSION['user']['username']}</div>";
 
     }
 
@@ -115,13 +120,31 @@ function footerInit(): void
 ';
 }
 
-function displayComment($commentAuthor, $commentContent, $commentDate)
+function displayComment($commentAuthor, $commentContent, $commentDate, $commentId)
 {
     echo '
-<div class="t-nav comment">
+<div class="comment">
+    <div class="nav t-nav"style="border-bottom: 0">
         <div class="left">
-        <span class="commentInfo">' . $commentAuthor . ' </span><span class="commentInfo"> ' . $commentDate . '</span>
+            <span class="commentInfo">' . $commentAuthor . ' </span>
+            <span class="commentInfo"> ' . $commentDate . '</span>
+        </div>';
+    if (isset($_SESSION['user']) and $_SESSION['user']['id'] = $commentAuthor) {
+
+        echo '
+        <form id = "modifyComment" action="makeComment.php" method="post">
+        <div class="right">
+            <input type="hidden" name="commentId" value="commentId">
+            <input type="hidden" name="executeType">
+            <a class="mini-btn" onclick="Submit(\'modifyComment\',[] , {\'executeType\': \'edit\'})" href="#">edit</a>
+            <a class="mini-btn" onclick="Submit(\'modifyComment\',[] , {\'executeType\': \'delete\'})" href="#">delete</a>
         </div>
+        </form>
+';
+
+    }
+    echo '
+    </div>
         <span>' . $commentContent . '<span>
 </div>
 ';
