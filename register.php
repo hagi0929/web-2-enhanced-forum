@@ -3,7 +3,7 @@ require_once("init.php");
 
 
 if (isset($_SESSION['user'])) {
-    header("location: welcome.php");
+    header("location: index.php");
 }
 
 $usernameInit = "";
@@ -51,7 +51,7 @@ if (isset($_REQUEST['register_btn'])) {
                 $query = "INSERT INTO users (username, email, password, created) VALUES (:username, :email, :password, NOW())";
                 $insert_stat = $db -> prepare($query);
                 $insert_stat->execute([':username' => username, ':email' => $email, ':password' => $hashed_password]);
-                header("location: login.php");
+                sendPOST('sendVerification');
             }
         } catch (PDOEXCEPTION $e) {
             echo $pdoError = $e->getMessage();

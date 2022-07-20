@@ -3,9 +3,12 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
-
+$hostname = "3.39.22.172";
+$username = "CRUD";
+$password = "63254088";
+$database = "Forum";
+$port = "3306";
 mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
-
 $connect = mysqli_connect(
     $hostname,
     $username,
@@ -14,11 +17,11 @@ $connect = mysqli_connect(
     $port
 ) or die('There was a problem connecting to the database');
 
-
-$DB_host = $hostname;
-$DB_user = $username;
-$DB_password = $password;
-$DB_database = $database;
+$myfile = fopen("key.txt", "r");
+$DB_host = preg_replace($myfile[0]);
+$DB_user = preg_replace($myfile[2]);
+$DB_password = preg_replace($myfile[3]);
+$DB_database = preg_replace($myfile[4]);
 try {
     $db = new PDO("mysql:host={$DB_host}; dbname={$DB_database}", $DB_user, $DB_password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -146,4 +149,13 @@ function displayComment($commentsRow)
 ';
 }
 
+function sendPOST($URL, $dataArray){
+$postdata = http_build_query($dataArray);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $URL);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_exec($ch);
+}
 ?>
