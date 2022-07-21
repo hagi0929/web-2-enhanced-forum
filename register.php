@@ -153,7 +153,7 @@ navigator();
                             document.querySelector("#loginErr" + String(errorNum)).innerHTML = errMsgJson[errorNum];
                         }
                     } else {
-                        window.location.href = 'index.php';
+                        window.location.href = 'login.php';
                     }
                 });
         }

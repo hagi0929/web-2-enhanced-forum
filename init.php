@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
-$hostname = "3.37.36.173";
+$hostname = "127.0.0.1";
 $username = "CRUD";
 $password = "63254088";
 $database = "Forum";
@@ -128,7 +128,7 @@ function displayComment($commentsRow)
         <form id="deleteComment" action="modifyComment.php" method="POST">
         <div class="right">
             <input type="hidden" name = "userId" value = "' . $_SESSION['user']['userId'] . '">
-            <input type="hidden" name = "articleId" value = "' . $_GET['id'] . '">
+            <input type="hidden" name = "articleId" value = "' . $commentsRow["articleId"] . '">
             <input type="hidden" name="executeType" value="0">
             <input type = "hidden" name = "commentId" value = "' . $commentsRow["id"] . '">
             <a class = "mini-btn" onclick = "Submit(\'deleteComment\')" href = "#">delete</a>

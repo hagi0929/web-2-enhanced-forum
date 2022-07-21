@@ -26,3 +26,22 @@ function getAndShowPost(articleId){
         })
     })
 }
+
+function reloadArticle(condition){
+    console.log(condition)
+    fetch('articleReload.php', {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            condition: condition
+        })
+    })
+        .then(function (response) {
+        response.text().then(function (content) {
+            document.getElementById("articleSection").innerHTML = content;
+        })
+    })
+}

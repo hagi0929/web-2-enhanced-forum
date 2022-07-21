@@ -4,10 +4,10 @@ top('Forum Board');
 headerInit();
 $condition = "";
 if (isset($_GET['user'])){
-    $condition = "WHERE authorId =".$_GET['user'];
+    $condition = "WHERE authorId =".mysqli_real_escape_string($connect, $_GET['user']);
 }
 if (isset($_GET['keyword'])){
-    $condition = "WHERE (title LIKE '%{$_GET['keyword']}%' OR content LIKE '%{$_GET['keyword']}%')";
+    $condition = "WHERE (title LIKE '%{$_GET['keyword']}%' OR content LIKE '%".mysqli_real_escape_string($connect, $_GET['keyword'])."')";
 
 }
 navigator(0);
@@ -23,14 +23,9 @@ navigator(0);
                 }
                 ?>">create post</a>
             </div>
-            <table>
-                <tr>
-                    <th class="titleCol">Title</th>
-                    <th class="authorCol">Author</th>
-                    <th class="dateCol">Time</th>
-                </tr>
+            <table id="articleSection">
                 <?php
-                $filterArticle = "SELECT id, title, authorId, uploadDate FROM article ". $condition . " ORDER BY uploadDate DESC";
+/*                $filterArticle = "SELECT id, title, authorId, uploadDate FROM article ". $condition . " ORDER BY uploadDate DESC";
                 $articleQuery = mysqli_query($connect, $filterArticle);
                 while ($articleRow = mysqli_fetch_array($articleQuery)) {
                     $filterUser = "SELECT * FROM users where userId = {$articleRow['authorId']}";
@@ -42,8 +37,12 @@ navigator(0);
                     echo '<td>' . mb_substr($articleRow['uploadDate'], 0, 10) . '</td>';
                     echo '</tr>';
                 }
-                ?>
+                */?>
             </table>
         </div>
     </div>
+
+    <script>
+        reloadArticle("<?=$condition?>")
+    </script>
 <?php footerInit();?>

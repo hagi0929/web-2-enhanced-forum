@@ -1,6 +1,6 @@
 <?php
 include_once("init.php");
-$rcvID = $_POST["ID"];
+$rcvID = mysqli_real_escape_string($connect, $_POST["ID"]);
 echo $rcvID;
 $article = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM article where id = " . $rcvID));
 
@@ -13,6 +13,7 @@ if (isset($_SESSION['user']) and $userRow['userId'] == $_SESSION['user']['userId
             $userRow['email'] == $_SESSION['user']['email'] and
             $userRow['username'] == $_SESSION['user']['username']) {
     mysqli_query($connect, "DELETE FROM article where id = " . $rcvID);
+    mysqli_query($connect, "DELETE FROM comments where articleId = " . $rcvID);
     header("Location: index.php");
 } else {
     echo "<script >alert('access denied')</script>";
