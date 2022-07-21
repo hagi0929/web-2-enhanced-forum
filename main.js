@@ -9,7 +9,7 @@ function Submit(ID, checkExistsList = [], addHidden = []) {
             return true;
         }
     })
-    for (const key in addHidden){
+    for (const key in addHidden) {
         console.log(key);
         document.getElementsByName(key).value = addHidden[key];
     }
@@ -17,11 +17,12 @@ function Submit(ID, checkExistsList = [], addHidden = []) {
         document.getElementById(ID).submit();
     }
 }
-const mysql = require('mysql2');
-keyDir = "././serverFiles/key.txt"
-const pool = mysql.createPool({
-  host: '호스트',
-  user: '유저',
-  database: '데이터베이스',
-  password: '비밀번호',
-});
+
+function getAndShowPost(articleId){
+    document.getElementById("commentSection").innerHTML = ""
+    fetch('commentReload.php?articleId='+articleId).then(function (response) {
+        response.text().then(function (content) {
+            document.getElementById("commentSection").innerHTML = content;
+        })
+    })
+}

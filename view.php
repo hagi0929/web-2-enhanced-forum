@@ -56,14 +56,10 @@ navigator(1);
                     </div>
                 </form>';
                 }
-                $filterComments = "SELECT comments.content, comments.dateCreated, users.username, comments.id, userId FROM comments LEFT JOIN users on comments.authorId = users.userId WHERE articleId =" . $_GET['id'];
-                $commentsQuery = mysqli_query($connect, $filterComments);
-                while ($commentsRow = mysqli_fetch_array($commentsQuery)) {
-                    displayComment($commentsRow);
-                }
                 ?>
+                <div id = "commentSection"></div>
                 <script>
-
+                    getAndShowPost(<?=$articleId?>);
                 </script>
             </div>
         </div>

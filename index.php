@@ -1,3 +1,4 @@
+<?php
 include_once('init.php');
 top('Forum Board');
 headerInit();

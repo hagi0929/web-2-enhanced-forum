@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
-$hostname = "3.39.22.172";
+$hostname = "3.37.36.173";
 $username = "CRUD";
 $password = "63254088";
 $database = "Forum";
@@ -17,13 +17,8 @@ $connect = mysqli_connect(
     $port
 ) or die('There was a problem connecting to the database');
 
-$myfile = fopen("key.txt", "r");
-$DB_host = preg_replace($myfile[0]);
-$DB_user = preg_replace($myfile[2]);
-$DB_password = preg_replace($myfile[3]);
-$DB_database = preg_replace($myfile[4]);
 try {
-    $db = new PDO("mysql:host={$DB_host}; dbname={$DB_database}", $DB_user, $DB_password);
+    $db = new PDO("mysql:host={$hostname}; dbname={$database}", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOEXCEPTION $e) {
     echo $e->getMessage();
@@ -149,13 +144,22 @@ function displayComment($commentsRow)
 ';
 }
 
-function sendPOST($URL, $dataArray){
-$postdata = http_build_query($dataArray);
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $URL);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_exec($ch);
+function sendPOST($URL, $dataArray)
+{
+    $postdata = http_build_query($dataArray);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $URL);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
 }
+
+function getSelectedSQL($query, $replaceWord)
+{
+    $select_stat = $db->prepare($query);
+    $select_stat->execute($replaceWord);
+    return $select_stat->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
